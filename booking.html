@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ball Dental</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="min-vh-100 bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-4">
+          <div class="container">
+            <a class="navbar-brand" href="home.html">Ball Dental</a>
+            <img src="1599789.png" alt="Logo" class="img-fluid rounded-circle" style="width: 50px;">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="home.html">HOME</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">ABOUT US</a></li>
+                <li class="nav-item"><a class="nav-link" href="staff.html">STAFF</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">SERVICES</a></li>
+                <li class="nav-item"><a class="nav-link active" href="booking.html">BOOK APPOINTMENT</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+  <div class="container mt-4">
+    <h1 class="text-2xl font-bold mb-4">Book your appointment</h1>
+    <div id="appointments">
+      <!-- Input fields for the first person -->
+      <div class="row appointment">
+        <h3>Patient 1</h3>
+        <div class="col-md-4 mb-3">
+          <label class="form-label text-primary">Name</label>
+          <input type="text" class="form-control" placeholder="Enter your name">
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label text-primary">Service</label>
+          <select class="form-select">
+            <option selected>Choose...</option>
+            <option>Wisdom Teeth Removal</option>
+            <option>Braces</option>
+            <option>Root Canal</option>
+            <option>Dental Implants</option>
+            <option>Cosmetic</option>
+            <option>Cleaning</option>
+          </select>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label class="form-label text-primary">Doctor</label>
+          <select class="form-select">
+            <option selected>Choose...</option>
+            <option>Dr.Smith Jith</option>
+            <option>Dr.John Hohn</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-primary">Date</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-primary">Time</label>
+          <input type="time" class="form-control">
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary mb-3" id="addPersonButton">Add Person</button>
+    <div class="d-flex justify-content-center"> <!-- Center the button -->
+      <button class="btn btn-primary" id="confirmButton" disabled>Confirm Appointment</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const addPersonButton = document.getElementById('addPersonButton');
+    const confirmButton = document.getElementById('confirmButton');
+    const appointmentsContainer = document.getElementById('appointments');
+
+    let patientCount = 1;
+
+    addPersonButton.addEventListener('click', () => {
+      const appointmentTemplate = document.querySelector('.appointment');
+      const newAppointment = appointmentTemplate.cloneNode(true);
+      const patientHeader = newAppointment.querySelector('h3');
+      patientCount++;
+      patientHeader.textContent = `Patient ${patientCount}`;
+      appointmentsContainer.appendChild(newAppointment);
+      updateConfirmButtonState();
+    });
+
+    function updateConfirmButtonState() {
+      const inputs = document.querySelectorAll('.appointment input, .appointment select');
+      const allFilled = Array.from(inputs).every(input => input.value.trim() !== '' && input.value.trim() !== 'Choose...');
+      confirmButton.disabled = !allFilled;
+    }
+
+    appointmentsContainer.addEventListener('input', () => {
+      updateConfirmButtonState();
+    });
+
+    confirmButton.addEventListener('click', () => {
+      window.location.href = 'index.html'; // Redirect to index.html
+    });
+  </script>
+</body>
+</html>
